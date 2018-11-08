@@ -37,7 +37,7 @@ def scrape_bsj(category):
 
     results = {}
 
-    for i in range(len(post_elems)):
+    for i, __ in enumerate(link_elems):
 
         post_date = datetime.datetime.strptime(post_date_elems[i].getText(),
                                                '%B %d, %Y')
@@ -210,10 +210,9 @@ if __name__ == "__main__":
 
     # Do run time logging.
     try:
-        old_time_log = open('runlog.txt', 'r')
-        content = old_time_log.readlines()
-        old_time_log.close()
-        last_line = content[len(content) - 1].rstrip()
+        with open('runlog.txt', 'r') as old_time_log:
+            content = old_time_log.readlines()
+        last_line = content[-1].rstrip()
 
         print("Script last ran at: " + last_line)
 
@@ -228,9 +227,8 @@ if __name__ == "__main__":
         old_time = (start_time - datetime.timedelta(days=start_time_input))
 
     current_time = datetime.datetime.now()
-    new_time_log = open('runlog.txt', 'a')
-    new_time_log.write(current_time.strftime("%Y-%m-%d %H:%M:%S") + "\n")
-    new_time_log.close()
+    with open('runlog.txt', 'a') as new_time_log:
+        new_time_log.write(current_time.strftime("%Y-%m-%d %H:%M:%S") + "\n")
 
     # Define arguments and call scraping functions.
     header = {'User-Agent': 'Mozilla/5.0'}
