@@ -21,7 +21,7 @@ def scrape_bsj(category, old_time):
 
     results = {}
 
-    for i in range(len(post_elems)):
+    for i, __ in enumerate(link_elems):
 
         post_date = datetime.datetime.strptime(post_date_elems[i].getText(),
                                                '%B %d, %Y')
